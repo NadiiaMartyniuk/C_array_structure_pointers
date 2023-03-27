@@ -1,0 +1,184 @@
+#include <stdio.h>
+#include<stdlib.h>
+
+/*1. Dane: tablica liczbowa 2-wymiarowa.
+Proszę wyznaczyć wartość max, liczbę wystąpień tej wartości oraz utworzyć tablicę 2-wymiarową (2
+wiersze lub 2 kolumny) zawierającą indeksy elem. maksymalnych.*/
+
+int main(){
+    int n, i, j, k, ile_max ,indeks_i, indeks_j;
+    float max;
+    printf("Ile wierszy ");
+    scanf ("%d",&n);
+    printf("Ile kolumn ");
+    scanf("%d",&k);
+    float **tab=(float**)malloc(n*sizeof(float*));
+    for (i=0;i<n;i++)
+        tab[i]=(float*)malloc(k*sizeof(float));
+    for (i=0;i<n;i++){
+        for(j=0;j<k;j++){
+        printf("Wprowadz liczbe ");
+        scanf("%f",&tab[i][j]);
+    }}
+    printf("\nTwoja tablica:\n");
+    for (i=0;i<n;i++){
+        for(j=0;j<k;j++){
+        printf("%.2f\t", tab[i][j]);}
+    printf("\n");}
+    max=tab[0][0];
+    ile_max=0;
+    for (i=0;i<n;i++){
+        for(j=0;j<k;j++){
+        if (tab[i][j]>max){
+            max=tab[i][j];}
+        }}
+    for (i=0;i<n;i++){
+        for(j=0;j<k;j++){
+        if (tab[i][j]==max){
+            ile_max++;}
+        }}
+    printf("Element %.2f - maximum, wystepuje %d razy ",max,ile_max);
+    float **tab_indeksy=(float**)malloc(2*sizeof(float*));
+    for (i=0;i<n;i++)
+        tab_indeksy[i]=(float*)malloc(ile_max*sizeof(float));
+    indeks_i=0;
+    indeks_j=0;
+    for (i=0;i<n;i++){
+        for(j=0;j<k;j++){
+        if (tab[i][j]==max){
+            tab_indeksy[indeks_i][indeks_j]=i;
+            tab_indeksy[indeks_i+1][indeks_j]=j;
+            indeks_j ++;
+        }
+    }}
+     printf("\nTwoja tablica indeksow elementow maksymalnych:\n");
+    for (i=0;i<2;i++){
+        for(j=0;j<indeks_j;j++){
+            printf("%.2f\t",tab_indeksy[i][j]);
+        }
+        printf("\n");}
+
+   /* int *tab=(int*)malloc(k*sizeof(int));
+    for(j=0;j<k;j++){
+        printf("Wprowadz liczbe ");
+        scanf("%d",tab+j);}
+    printf("\nTwoja tablica:\n");
+    for (i=0;i<k;i++){
+            printf("%d\t", *(tab+i));}*/
+    return 0;}
+
+//------------------------------------------------------------------------------------------------------------------------
+/*2. Dane: tablica liczbowa 1-wymiarowa.
+Proszę utworzyć tablicę 2-wymiarową (2 wiersze lub 2 kolumny)zawierającąpojedyncze
+wystąpienia liczb z danej tablicy oraz ile razy dana liczba wystąpiła.*/
+
+int main(){
+    int n, i, j,k,h, ile_raz, czy_byla_liczba;
+    printf("Ile liczb ? ");
+    scanf("%d",&n);
+    float T[n];
+    for (i=0;i<n;i++){
+        printf("Podaj %d liczbe ",i+1);
+        scanf("%f",&T[i]);
+    }
+    printf("\nTo twoja tablicza: \n");
+    for (i=0;i<n;i++){
+        printf("%.2f ",T[i]);
+    }
+    float **tab=(float**)malloc(sizeof(float*));
+    for (i=0; i<2; i++)
+        tab[i]=(float*)malloc(sizeof(float));
+    ile_raz=0;
+    k=0;
+    czy_byla_liczba=0;
+    for (i=0;i<n;i++){
+        for (j=0;j<n;j++){
+            if (j>0){
+                for (h=0;h<k;h++){
+                    if (T[i]==tab[0][h]){
+                        czy_byla_liczba=1;
+                        break;
+                    }}
+                if (czy_byla_liczba)
+                    break;
+            }
+
+            if(T[i]==T[j]){
+                ile_raz++;
+            }
+
+        }
+        if (czy_byla_liczba==0){
+        tab[0][k]=T[i];
+        tab[1][k]=ile_raz;
+        k++;
+        tab=(float*)realloc(tab,k*sizeof(float));
+
+        }
+        czy_byla_liczba=0;
+        ile_raz=0;}
+      printf("\nTablica elementow i indeksow \n");
+    for (i=0; i<2; i++){
+        for (j=0; j<k; j++){
+            printf("%.2f ",tab[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+
+//------------------------------------------------------------------------------------------------------------------------
+
+
+/*3.Dane:tablica liczbowa 2-wymiarowa kwadratowa.
+Proszę zamienić miejscami elementy z górnego i dolnego trójkąta wyznaczonego przez 2 główne przekątne.*/
+
+
+int main(){
+    int n, j, i, k, kolumny ,wierszy, g;
+    float temp;
+    printf("Dlugosc ");
+    scanf("%d",&n);
+    float T[n][n];
+    for (i=0;i<n;i++){
+        for(j=0;j<n;j++){
+            printf("Podaj wartosc ");
+            scanf("%f",&T[i][j]);
+        }
+    }
+    for (i=0;i<n;i++){
+        for(j=0;j<n;j++){
+            printf("%.2f ",T[i][j]);
+        }
+        printf("\n");
+    }
+    k=n;
+    wierszy=0;
+    kolumny=1;
+    g=n-2;
+    for(i=0;i<(n/2);i++){
+        if(g>=1){
+            for(j=0;j<g;j++){
+                temp=T[i][j+kolumny];
+                T[i][j+kolumny]=T[k-wierszy-1][j+kolumny];
+                T[k-wierszy-1][j+kolumny]=temp;
+            }}
+        else{
+            break;
+        }
+        wierszy++;
+        kolumny++;
+        g -= 2;
+        temp=0;
+    }
+    printf("\n");
+    for (i=0;i<n;i++){
+        for(j=0;j<n;j++){
+            printf("%.2f ",T[i][j]);
+        }
+        printf("\n");
+    }
+    return 0;
+}
+
