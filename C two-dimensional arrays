@@ -1,0 +1,94 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include<math.h>
+
+int main()
+{
+/*Dane: liczby całkowite N, K, tablica 2-wymiarowa liczb rzeczywistych {x i,j}
+i=0,…,N-1, j=0,…,K-1
+Proszę napisać programy realizujące następujące zadania. W każdym programie
+należy pobrać od użytkownika dane oraz wyświetlić wynik działania programu.
+1. Obliczyć średnią arytm. liczb w kolumnie wskazanej przez użytkownika.
+Uwaga: trzeba sprawdzić czy kolumna o tym numerze istnieje!
+2. Zamienić miejscami liczby z brzegowych wierszy.
+3. Sprawdzić, czy w tablicy jest liczba 0.
+4. Sprawdzić, czy tablica jest symetryczna względem środkowej kolumny. */
+
+    int N,K,i,j, nomer_kolumny, liczba_zero, tablica_symetryczna;
+    float srednia, sum, temp;
+    printf("Wprowadz liczbe wirsz ");
+    scanf("%d",&N);
+    printf("Wprowadz liczbe kolumn ");
+    scanf("%d",&K);
+    float T[N][K];
+    for (i=0; i<N; i++){
+        for (j=0; j<K; j++){
+            printf("Wprowadz element ");
+            scanf("%f", &T[i][j]);
+            }
+    }
+    printf("\nTo twoja tablica: \n");
+    for (i=0; i<N; i++){
+        for (j=0; j<K; j++){
+            printf("%.2f ", T[i][j]);}
+        printf("\n");
+    }
+    printf("Podaj nomer kolumny (numeracja od 1)");
+    scanf("%d", &nomer_kolumny);
+    if ((nomer_kolumny <= K)&& (nomer_kolumny>0)){
+        sum = 0;
+        nomer_kolumny -= 1;
+        for (i=0; i<N; i++){
+            sum += T[i][nomer_kolumny];}
+        srednia = (sum/N);
+        printf("Srednie aryfmetyczne liczb %d kolumny = %.2f ",nomer_kolumny+1, srednia);
+    }
+    else{
+        printf("\nTakiej kolumny nie istnieje");
+    }
+    for (j=0; j<K; j++){
+        temp=T[0][j];
+        T[0][j]=T[N-1][j];
+        T[N-1][j]=temp;
+    }
+    printf("\n\n To nowa tablica, w jakiej zamieniony pierszy i ostatni wierszy: \n");
+    for (i=0; i<N; i++){
+        for (j=0;j<K;j++){
+            printf("%.2f ",T[i][j]);
+        }
+    printf("\n");
+    }
+    liczba_zero=0;
+    for (i=0;i<N;i++){
+        for(j=0;j<K;j++){
+            if (T[i][j]==0){
+                liczba_zero=1;
+                printf("\nW tablicy jest liczba zero, ona znajduje sie w %d wierszu, %d kolumnie ",i+1,j+1);
+                break;
+            }
+        }
+        if (liczba_zero==1){
+            break;
+        }
+    }
+    if (liczba_zero==0){
+        printf("\nW tablicy nie ma 0 ");
+    }
+    tablica_symetryczna=1;
+    for (i=0;i<N;i++){
+        for (j=0;j<K;j++){
+            if (T[i][j]!=T[i][K-j-1]){
+                tablica_symetryczna=0;
+                printf("\nTablica nie jest symetryczna ");
+                break;
+            }
+        }
+        if (tablica_symetryczna==0){
+            break;
+        }
+    }
+    if (tablica_symetryczna==1){
+        printf("\n\nTablica symetryczna\n");
+    }
+    return 0;
+}
