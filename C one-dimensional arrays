@@ -1,0 +1,71 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include<math.h>
+
+int main()
+{
+
+/*Dana jest tablica T składająca się z N liczb rzeczywistych.
+1. Proszę wczytać dane, obliczyć i wyświetlić:
+• Średnią arytmetyczną liczb mniejszych od T[N-1].
+• Iloczyn liczb z przedziału <T[0],T[1]>*/
+
+    int N, i, k;
+    printf("Wprowadz ile liczb ");
+    scanf("%d",&N);
+    if (N<0){
+        return 0;
+    }
+    float T[N], serednia, sum, iloczyn, X[N], Y[N], A[N];
+    for (i=0; i<N; i++){
+        printf("Wprowadz %d element ", i+1);
+        scanf("%f",&T[i]);
+    }
+    printf("\nTablica: \n");
+    sum=0;
+    for (i=0; i<N; i++){
+        printf("%.2f ",T[i] );
+        sum +=T[i];
+    }
+    serednia=sum/N;
+    printf("\nSuma elementiw = %.2f \n",sum);
+    if (N>1){
+        iloczyn=T[0]*T[1];
+        printf("iloczyn = %.2f ",iloczyn);
+    }
+
+/*2. Utworzyć i wyświetlić 2 nowe tablice:
+• X składa się z wartości bezwzględnych elementów T,
+• Y składa się z elementów T zapisanych w odwrotnej kolejności. */
+
+    for (i=0; i<N; i++){
+        X[i]=fabs(T[i]);
+    }
+    printf("\nTablica X: \n");
+    for (i=0; i<N; i++){
+        printf("%.2f ",X[i]);
+    }
+    k=0;
+    printf("\nTablica Y\n");
+    for (i=(N-1); i>=0; i--){
+        Y[k]=T[i];
+        k ++;
+
+    }
+    for (i=0; i<N; i++){
+        printf("%.2f ",Y[i]);
+    }
+/*3. Z tablic T oraz Y utworzyć i wyświetlić nową tablicę A w następujący sposób: A[i]=
+min( T[i], Y[i]*/
+    printf("\nTablica A:\n");
+    for (i=0; i<N; i++){
+        if (T[i]<Y[i])
+            A[i]=T[i];
+        else A[i]=Y[i];
+
+    }
+    for (i=0; i<N; i++){
+        printf("%.2f ",A[i]);
+    }
+    return 0;
+}
