@@ -1,0 +1,107 @@
+#include <stdio.h>
+#include<stdlib.h>
+
+/*Struktura HURT zawiera nazwę towaru, ilość, cenę.
+1. Wczytać dane dla 1 towaru, obliczyć, wyświetlić wartość (cena*ilość)
+towaru.*/
+
+struct HURT{
+    char nazwa[20];
+    int ilosc;
+    float cena;
+};
+
+int main(){
+    struct HURT towar;
+    float wartosc_towaru;
+    printf("Wpisz nazwu towaru ");
+    gets(towar.nazwa);
+    printf("Jaka ilosz ? ");
+    scanf("%d", &towar.ilosc);
+    printf("Podaj cenu ");
+    scanf("%f", &towar.cena);
+    wartosc_towaru=towar.ilosc*towar.cena;
+    printf("Wartosc towaru = %.2f ",wartosc_towaru);
+    return 0;
+}
+
+-----------------------------------------------------------------------------------
+#include <stdio.h>
+#include<stdlib.h>
+
+/*Struktura HURT zawiera nazwę towaru, ilość, cenę.
+2. Wczytać dane dla n towarów (tablica struktur). Obliczyć, wyświetlić:
+a. dane towaru, który ma maksymalną cenę,
+b. średnią wartość wszystkich towarów,
+c. ilość towaru o podanej nazwie.*/
+
+struct HURT{
+    char nazwa[20];
+    int ilosc;
+    float cena;
+};
+
+struct HURT Maksymalna_cena(int n, struct HURT towar[]){
+    int i, indeks;
+    float max;
+    max=towar[0].cena;
+    indeks = 0;
+    for (i=0;i<n; i++){
+        if (towar[i].cena>max){
+            max = towar[i].cena;
+            indeks = i;
+        }
+    }
+    return towar[indeks];
+};
+
+float Srednia_wartosc(int n, struct HURT towar[]){
+    int i;
+    float wartosc;
+    wartosc = 0;
+    for (i=0;i<n;i++){
+        wartosc += towar[i].ilosc*towar[i].cena;
+    }
+    wartosc = wartosc/n;
+    return wartosc;
+};
+
+int Ilie_takich_towarow(int n, char nazwa_towaru[], struct HURT towar[]){
+    int i, ilosc;
+    ilosc = 0;
+    for (i=0; i<n; i++){
+        if (strcmp(nazwa_towaru, towar[i].nazwa)==0)
+            ilosc ++;
+    }
+    return ilosc;
+}
+
+int main(){
+    int n, i, ile;
+    float srednia_w;
+    char nazwa_towaru[20];
+    printf("Ile towaruw masz ? ");
+    scanf("%d", &n);
+    struct HURT towar[n], maksymal;
+    for (i=0; i<n; i++){
+        printf("Wpisz nazwu towaru ");
+        fflush(stdin);
+        gets(towar[i].nazwa);
+        printf("Jaka ilosz ? ");
+        scanf("%d", &towar[i].ilosc);
+        printf("Podaj cenu ");
+        scanf("%f", &towar[i].cena);
+    }
+    maksymal=Maksymalna_cena(n, towar);
+    printf("\nTowar z maksymalnoj cenoj: ");
+    printf("Nazwa: %s, ilosc: %d, cena: %.2f ", maksymal.nazwa, maksymal.ilosc, maksymal.cena);
+    srednia_w=Srednia_wartosc(n, towar);
+    printf("\nSrednia wartosc wszystkich towarow = %.2f",srednia_w);
+    printf("\nPodaj nazwe towaru jaki szukasz ");
+    fflush(stdin);
+    gets(nazwa_towaru);
+    ile=Ilie_takich_towarow(n, nazwa_towaru, towar);
+    printf("\n Znaleziono %d takich towarow ",ile);
+    return 0;
+}
+
