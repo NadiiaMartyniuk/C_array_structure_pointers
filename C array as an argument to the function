@@ -1,0 +1,175 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include<math.h>
+#include<time.h>
+int MAX (int N, int T[])
+    {
+        int i, max;
+        max=T[0];
+        for (i=0; i<N; i++){
+            if (T[i]>max){
+                max=T[i];
+            }
+        }
+        return max;
+    }
+int WM (int N, int T[], int liczba)
+    {
+        int kilkist, i;
+        kilkist = 0;
+        for (i=0; i<N; i++){
+            if (T[i]>liczba){
+                kilkist +=1;
+            }
+        }
+        return kilkist;
+    }
+float NEW_TAB(int N, int T[], float NT[])
+    {
+        int i;
+        for (i=0; i<N; i++){
+            if (T[i]<100){
+                NT[i]=T[i];}
+            else{
+               NT[i]=T[i]*0.9;}
+        }
+    }
+
+int main()
+{
+/*Funkcja Maks oblicza i zwraca największą liczbę w tablicy
+jednowymiarowej
+
+Funkcja WM oblicza i zwraca ile liczb w tablicy jednowymiarowej jest
+większych liczby będącej parametrem funkcji
+
+Funkcja NEW_TAB wpisuje do nowej tablicy NT[] liczby z danej tablicy T[]
+w następujący sposób:
+𝑁𝑇[𝑖] = 𝑇[𝑖] 𝑔𝑑𝑦 𝑇[𝑖] < 100
+𝑁𝑇[𝑖] = 𝑇[𝑖] ∗ 0.9 𝑔𝑑𝑦 𝑇[𝑖] ≥ 100 */
+
+
+    int N, i, max, liczba, kilkist;
+    printf("Ile elementow ");
+    scanf("%d", &N);
+    if (N<1){
+        return 0;
+    }
+    int T[N];
+    float NT[N];
+    srand((unsigned int)time(NULL));
+    for (i=0; i<N; i++){
+        T[i]=rand()%200;
+    }
+    printf("To twoja zgenerowana tablica \n [");
+    for (i=0; i<N; i++){
+        printf("%d ",T[i]);
+    }
+    printf("]\n");
+    max=MAX(N,T);
+    printf("Maksymalny element tablicy = %d",max);
+    printf("\nNapisz badana liczbe ");
+    scanf("%d", &liczba);
+    kilkist=WM(N,T,liczba);
+    printf("W tablice sa %d liczb wiekszych od %d ",kilkist, liczba);
+    NEW_TAB(N,T,NT);
+    printf("\nNowa tablica: \n [");
+    for (i=0; i<N; i++){
+        printf("%.2f ",NT[i]);
+    }
+    printf("]");
+    return 0;
+}
+
+-------------------------------------------------------- SWITCH ----------------------------------------------------------------------------
+
+#include <stdio.h>
+#include <stdlib.h>
+#include<math.h>
+#include<time.h>
+int MAX (int N, int T[])
+    {
+        int i, max;
+        max=T[0];
+        for (i=0; i<N; i++){
+            if (T[i]>max){
+                max=T[i];
+            }
+        }
+        return max;
+    }
+int WM (int N, int T[], int liczba)
+    {
+        int kilkist, i;
+        kilkist = 0;
+        for (i=0; i<N; i++){
+            if (T[i]>liczba){
+                kilkist +=1;
+            }
+        }
+        return kilkist;
+    }
+float NEW_TAB(int N, int T[], float NT[])
+    {
+        int i;
+        for (i=0; i<N; i++){
+            if (T[i]<100){
+                NT[i]=T[i];}
+            else{
+               NT[i]=T[i]*0.9;}
+        }
+    }
+
+int main()
+{
+    int N, i, max, liczba, kilkist, nomer;
+    printf("Ile elementow ");
+    scanf("%d", &N);
+    if (N<1){
+        return 0;
+    }
+    int T[N];
+    float NT[N];
+    srand((unsigned int)time(NULL));
+    for (i=0; i<N; i++){
+        T[i]=rand()%200;
+    }
+    printf("To twoja zgenerowana tablica \n [");
+    for (i=0; i<N; i++){
+        printf("%d ",T[i]);
+    }
+    printf("]\n");
+
+    nomer=5;
+    printf("\n1. Funkcja Maks oblicza i zwraca najwieksza liczbe w tablicy");
+    printf("\n2. Funkcja WM oblicza i zwraca ile liczb w tablicy jest wiekszych liczby bedacej");
+    printf("\n3. Stworzycz nowa Funkcje");
+    printf("\n   Zeby wyjsc wpisz 0");
+    while (nomer!=0){
+    printf("\nWprowadz nomer ");
+    scanf("%d",&nomer);
+    switch(nomer){
+    case 1:
+        max=MAX(N,T);
+        printf("Maksymalny element tablicy = %d",max); break;
+    case 2:
+        printf("\nNapisz badana liczbe ");
+        scanf("%d", &liczba);
+        kilkist=WM(N,T,liczba);
+        printf("W tablice sa %d liczb wiekszych od %d ",kilkist, liczba); break;
+    case 3:
+        NEW_TAB(N,T,NT);
+        printf("\nNowa tablica: \n [");
+        for (i=0; i<N; i++){
+            printf("%.2f ",NT[i]);}
+        printf("]"); break;
+    case 0:
+        printf("\n");
+        break;
+    default:
+        printf("\nNieprawiedlowe dane");
+    }}
+
+    return 0;
+}
+
