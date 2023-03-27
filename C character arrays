@@ -1,0 +1,111 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include<string.h>
+
+int main()
+{
+/*1. Wczytać imię i nazwisko, wyświetlić dużymi literami inicjały. */
+
+    char imie[10], nazwisko[20];
+    int i, len_imie, len_nazwisko;
+    printf("Wpisz imie ");
+    gets (imie);
+    len_imie=strlen(imie);
+    printf("\nWpisz nazwisko ");
+    gets (nazwisko);
+    len_nazwisko=strlen(nazwisko);
+    for(i=0;i<len_imie;i++){
+        imie[i]=toupper(imie[i]);
+    }
+    for(i=0;i<len_nazwisko;i++){
+        nazwisko[i]=toupper(nazwisko[i]);
+    }
+    printf ("\nInicialy %s %s\n",imie,nazwisko);
+    return 0;
+
+
+/*2. Wczytać ciąg znaków. Wyświetlić ilość liter i ilość cyfr. */
+    char ciag[50];
+    int i, len, cyfry, litery;
+    printf("Wprowadz ciag znakow ");
+    gets(ciag);
+    len=strlen(ciag);
+    cyfry=0;
+    litery=0;
+    for (i=0;i<len;i++){
+        if (isdigit(ciag[i])){
+            cyfry ++;
+        }
+        if (isalpha(ciag[i])){
+            litery += 1;
+        }
+    }
+    printf("\nW tekstie %d litery oraz %d cyfr\n",litery, cyfry);
+    return 0;
+
+}
+
+/*3. Wczytać tablicę n wierszy zawierającą w każdym wierszu liczbę całkowitą zapisaną
+jako tekst. Utworzyć z tych danych tablicę typu int, obliczyć sumę tych liczb,
+wyświetlić sumę.*/
+    int n, i;
+    printf("ile wierszow ");
+    scanf("%d",&n);
+    fflush(stdin);
+    char T[n][20];
+    int T_int[n], sum;
+    for (i=0; i<n; i++){
+        printf("Wprowadz %d liczbu ",i+1);
+        gets(T[i]);
+    }
+    printf("\nTo twoja tablica typu int: ");
+    sum=0;
+    for (i=0; i<n; i++){
+        T_int[i]=atoi(T[i]);
+        printf("%d ", T_int[i]);
+        sum += T_int[i];
+    }
+    printf("\n Suma liczb = %d ",sum);
+
+    return 0;
+
+/*4. Wczytać tablicę n wierszy zawierającą w każdym wierszu dane: nr grupy spacja
+nazwisko spacja imię. Dopuszczalny nr: 1 lub 2. Utworzyć oddzielne tablice dla
+każdej grupy, w których wiersz zawiera tylko nazwisko spacja imię. Wyświetlić
+wyniki.*/
+    int n, i, g1, g2,k,len;
+    char T[4][30], G1[4][30], G2[4][30];
+    g1=0;
+    g2=0;
+    for (i=0; i<4; i++){
+        printf("Wprowadz nr grupy oraz nazwisko i imie ");
+        gets(T[i]);
+        len=strlen(T[i]);
+        if (T[i][0]=='1'){
+                for (k=2;k<len;k++){
+                    G1[g1][k-2]=T[i][k];
+                }
+                G1[g1][k-2]='\0';
+                g1 +=1;
+        }
+        if (T[i][0]=='2'){
+            for (k=2;k<len;k++){
+                    G2[g2][k-2]=T[i][k];
+                }
+                G2[g2][k-2]='\0';
+                g2 +=1;
+        }
+    }
+
+
+    if (g1){
+        printf("1 grupa: \n");
+        for (i=0;i<g1;i++){
+            printf("%s \n",G1[i]);
+        }}
+    if (g2){
+        printf("2 grupa: \n");
+        for (i=0;i<g2;i++){
+            printf("%s \n",G2[i]);
+        }}
+ return 0;}
