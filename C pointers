@@ -1,0 +1,134 @@
+/*1. Dane: N, tablica {xi} i=0,...N-1. Funkcja F oblicza i zwraca:
+    a. poprzez return sumę liczb dodatnich z tablicy x,
+    b. poprzez parametr wskaźnikowy iloczyn wszystkich liczb.*/
+
+#include <stdio.h>
+#include<stdlib.h>
+
+float F(float T[], int N, float *iloczyn){
+    float suma, iloczn_temp;
+    int i, czy_obczyslone;
+    czy_obczyslone=0;
+    suma = 0;
+    iloczn_temp=1;
+    for (i=0; i<N; i++){
+        if (T[i]>0){
+            suma += T[i];
+            czy_obczyslone ++;}
+        iloczn_temp *= T[i];
+    }
+    *iloczyn=iloczn_temp;
+     if (czy_obczyslone)
+        return suma;
+     else
+        return -1;
+
+}
+
+int main()
+{
+    int i, N;
+    printf("ile liczb ");
+    scanf("%d",&N);
+    if (N<1){
+        printf("Wprowadzono zly dane ");
+        return 0;
+    }
+    float X[N], sum, iloczyn;
+    for (i=0;i<N;i++){
+        printf("\nWprowadz %d liczbe ",i+1);
+        scanf("%f",&X[i]);
+    }
+    sum=F(X,N,&iloczyn);
+    if (sum>0){
+        printf("\nsuma liczb dodatnich = %.2f ",sum);
+    }
+    else printf("\nW tablice nie ma liczb dodatnich");
+    printf("\nIloczyn wszystkich liczb = %.2f ",iloczyn);
+    return 0;
+}
+
+----------------------------------------------------------------------------------------------------------------------
+/*2. Dane: N, tablica {xi} i=0,...N-1. Funkcja F oblicza i zwraca:
+    a. poprzez return średnią arytm. wszystkich liczb w tablicy,
+    b. poprzez parametr wskaźnikowy informację, ile liczb w tablicy jest
+        większych od średniej.*/
+
+#include <stdio.h>
+#include<stdlib.h>
+
+float F(float T[], int N, int *ile){
+    int i, ile_l;
+    float s_aryf, sum;
+    sum = 0;
+    ile_l=0;
+    for (i=0;i<N;i++){
+      sum += T[i];  }
+    s_aryf=sum/N;
+    for (i=0;i<N;i++){
+        if (T[i]>s_aryf)
+            ile_l++;
+    }
+    *ile=ile_l;
+    return s_aryf;}
+
+int main()
+{
+
+    int i, N, ile_liczb;
+    printf("ile liczb ");
+    scanf("%d",&N);
+    if (N<1){
+        printf("Wprowadzono zly dane ");
+        return 0;
+    }
+    float X[N], srednia;
+    for (i=0;i<N;i++){
+        printf("\nWprowadz %d liczbe ",i+1);
+        scanf("%f",&X[i]);
+    }
+    srednia=F(X,N,&ile_liczb);
+    printf("\nSrednia aryfmetyczna liczb = %.2f ",srednia);
+    printf("\nW tablice sa %d liczb wiekszych od sredniej ",ile_liczb);
+    return 0;
+}
+----------------------------------------------------------------------------------------------------------------------
+/*3. Dane: N, tablica {xi} i=0,...N-1. Funkcja F zwraca:
+    a. danę tablicę x, w której elementy ujemne zastąpione są 0 czyli modyfikuje tablicę x,
+    b. poprzez parametr wskaźnikowy informację ile było zastąpień*/
+
+#include <stdio.h>
+#include<stdlib.h>
+
+void F(int N, float T[], int *ile_liczb){
+    int i, ile;
+    ile=0;
+    for (i=0;i<N;i++){
+        if (T[i]<0){
+            T[i]=0;
+            ile +=1;
+        }
+    }
+    *ile_liczb=ile;
+}
+
+int main()
+{
+    int i, N, ile_liczb;
+    printf("ile liczb ");
+    scanf("%d",&N);
+    if (N<1){
+        printf("Wprowadzono zly dane ");
+        return 0;
+    }
+    float X[N];
+    for (i=0;i<N;i++){
+        printf("\nWprowadz %d liczbe ",i+1);
+        scanf("%f",&X[i]);
+    }
+    F(N,X,&ile_liczb);
+    printf("\nBylo zamieniono %d liczb ",ile_liczb);
+
+    return 0;
+}
+
